@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: litellm-config
+  namespace: canchat-v2-dev
+immutable: false
+data:
+  WATSONX_APIKEY: q1kuVQBqAYMVORW-xEGkJMIuUn44hlGF9aHWdn2K9sB2
+  WATSONX_PROJECT_ID: d4738cb6-df35-468c-80ea-cd4f6e8b2c90
+  WATSONX_URL: 'https://private.us-south.ml.cloud.ibm.com'

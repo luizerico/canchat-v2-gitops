@@ -1,0 +1,13 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: canchat-webui-config
+  namespace: canchat-v2-dev
+immutable: false
+data:
+  ANONYMIZED_TELEMETRY: 'false'
+  DO_NOT_TRACK: 'true'
+  OPENAI_API_BASE_URL: ''
+  OPENAI_API_KEY: ''
+  SCARF_NO_ANALYTICS: 'true'
+  WEBUI_SECRET_KEY: genericSecret
