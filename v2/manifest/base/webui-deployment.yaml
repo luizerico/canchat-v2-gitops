@@ -1,38 +1,48 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: open-webui-deployment
-  namespace: open-webui
+  name: canchat-webui-deployment
+  namespace: canchat-v2-dev
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: open-webui
+      app: canchat-webui-deployment
   template:
     metadata:
+      creationTimestamp: null
       labels:
-        app: open-webui
+        app: canchat-webui-deployment
     spec:
-      containers:
-      - name: open-webui
-        image: ghcr.io/open-webui/open-webui:main
-        ports:
-        - containerPort: 8080
-        resources:
-          requests:
-            cpu: "500m"
-            memory: "500Mi"
-          limits:
-            cpu: "1000m"
-            memory: "1Gi"
-        env:
-        - name: OLLAMA_BASE_URL
-          value: "http://ollama-service.open-webui.svc.cluster.local:11434"
-        tty: true
-        volumeMounts:
-        - name: webui-volume
-          mountPath: /app/backend/data
       volumes:
-      - name: webui-volume
-        persistentVolumeClaim:
-          claimName: open-webui-pvc          
+        - name: data
+          persistentVolumeClaim:
+            claimName: canchat-webui-pvc
+      containers:
+        - terminationMessagePath: /dev/termination-log\
+          resources: {}
+          name: container
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: data
+              mountPath: /app/backend/data
+          terminationMessagePolicy: File
+          envFrom:
+            - configMapRef:
+                name: open-webui-config
+          image: 'ca.icr.io/canchatapp/open-webui:07-11-24-2'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600        

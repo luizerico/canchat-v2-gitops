@@ -3,10 +3,14 @@ kind: PersistentVolumeClaim
 metadata:
   labels:
     app: open-webui
-  name: open-webui-pvc
-  namespace: open-webui
+  name: canchat-webui-pvc
+  namespace: canchat-v2-dev
 spec:
-  accessModes: ["ReadWriteOnce"]
+  accessModes:
+    - ReadWriteOnce
   resources:
     requests:
-      storage: 2Gi
+      storage: 1Gi
+  volumeName: pvc-b0dd9620-6e1b-4af4-9167-f9ac4d57ee7b
+  storageClassName: ibmc-vpc-block-10iops-tier
+  volumeMode: Filesystem
