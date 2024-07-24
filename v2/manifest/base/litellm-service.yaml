@@ -1,0 +1,21 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: litellm-svc
+  namespace: canchat-v2-dev
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: litellm
+      protocol: TCP
+      port: 4000
+      targetPort: 4000
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: litellm-deploy
+status:
+  loadBalancer: {}

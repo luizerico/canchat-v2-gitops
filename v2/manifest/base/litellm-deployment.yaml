@@ -1,0 +1,67 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: litellm-deploy
+  namespace: canchat-v2-dev
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: litellm-deploy
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: litellm-deploy
+    spec:
+      volumes:
+        - name: config
+          configMap:
+            name: llm-config-yaml
+            defaultMode: 420
+      containers:
+        - resources: {}
+          terminationMessagePath: /dev/termination-log
+          name: container
+          env:
+            - name: WATSONX_APIKEY
+              valueFrom:
+                configMapKeyRef:
+                  name: litellm-config
+                  key: WATSONX_APIKEY
+            - name: WATSONX_PROJECT_ID
+              valueFrom:
+                configMapKeyRef:
+                  name: litellm-config
+                  key: WATSONX_PROJECT_ID
+            - name: WATSONX_URL
+              valueFrom:
+                configMapKeyRef:
+                  name: litellm-config
+                  key: WATSONX_URL
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+          imagePullPolicy: IfNotPresent
+          volumeMounts:
+            - name: config
+              mountPath: /app/proxy_server_config.yaml
+              subPath: config.yaml
+          terminationMessagePolicy: File
+          image: 'ca.icr.io/canchatapp/litellm:main-latest'
+          args:
+            - '--config'
+            - /app/proxy_server_config.yaml
+            - '--detailed_debug'
+      restartPolicy: Always
+      terminationGracePeriodSeconds: 30
+      dnsPolicy: ClusterFirst
+      securityContext: {}
+      schedulerName: default-scheduler
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+  revisionHistoryLimit: 10
+  progressDeadlineSeconds: 600
