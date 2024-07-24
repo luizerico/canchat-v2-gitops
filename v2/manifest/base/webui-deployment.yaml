@@ -32,7 +32,7 @@ spec:
           terminationMessagePolicy: File
           envFrom:
             - configMapRef:
-                name: open-webui-config
+                name: canchat-webui-config
           image: 'ca.icr.io/canchatapp/open-webui:07-11-24-2'
       restartPolicy: Always
       terminationGracePeriodSeconds: 30
