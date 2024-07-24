@@ -11,6 +11,5 @@ spec:
   resources:
     requests:
       storage: 1Gi
-  volumeName: pvc-b0dd9620-6e1b-4af4-9167-f9ac4d57ee7b
   storageClassName: ibmc-vpc-block-10iops-tier
   volumeMode: Filesystem
