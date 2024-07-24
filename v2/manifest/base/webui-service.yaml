@@ -4,7 +4,7 @@ metadata:
   name: canchat-webui-service
   namespace: canchat-v2-dev
 spec:
-  clusterIP: 172.21.43.246
+  clusterIP: "172.21.43.246"
   ipFamilies:
     - IPv4
   ports:
@@ -14,7 +14,7 @@ spec:
       targetPort: 8080
   internalTrafficPolicy: Cluster
   clusterIPs:
-    - 172.21.43.246
+    - "172.21.43.246"
   type: ClusterIP
   ipFamilyPolicy: SingleStack
   sessionAffinity: None
