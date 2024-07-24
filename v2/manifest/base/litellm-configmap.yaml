@@ -2,7 +2,7 @@ kind: ConfigMap
 apiVersion: v1
 metadata:
   name: litellm-config
-  namespace: canchat-v2-dev
+  namespace: canchat-dev
 immutable: false
 data:
   WATSONX_APIKEY: q1kuVQBqAYMVORW-xEGkJMIuUn44hlGF9aHWdn2K9sB2

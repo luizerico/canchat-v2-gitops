@@ -4,7 +4,7 @@ metadata:
   labels:
     app: open-webui
   name: canchat-webui-pvc
-  namespace: canchat-v2-dev
+  namespace: canchat-dev
 spec:
   accessModes:
     - ReadWriteOnce

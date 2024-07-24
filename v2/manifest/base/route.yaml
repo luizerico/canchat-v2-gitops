@@ -2,9 +2,9 @@ kind: Route
 apiVersion: route.openshift.io/v1
 metadata:
   name: canchat-webui-route
-  namespace: canchat-v2-dev
+  namespace: canchat-dev
 spec:
-  host: canchat-v2-dev.canchat-ocp-7bd66546f44a6f6d0634d02d2a3736d6-0000.ca-tor.containers.appdomain.cloud
+  host: canchat-dev.canchat-ocp-7bd66546f44a6f6d0634d02d2a3736d6-0000.ca-tor.containers.appdomain.cloud
   to:
     kind: Service
     name: canchat-webui-service

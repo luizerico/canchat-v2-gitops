@@ -2,7 +2,7 @@ kind: Service
 apiVersion: v1
 metadata:
   name: litellm-svc
-  namespace: canchat-v2-dev
+  namespace: canchat-dev
 spec:
   ipFamilies:
     - IPv4
