@@ -1,0 +1,19 @@
+kind: Service
+apiVersion: v1
+metadata:
+  name: qdrant-service
+  namespace: canchat-dev
+spec:
+  ipFamilies:
+    - IPv4
+  ports:
+    - name: qdrant
+      protocol: TCP
+      port: 6333
+      targetPort: 6333
+  internalTrafficPolicy: Cluster
+  type: ClusterIP
+  ipFamilyPolicy: SingleStack
+  sessionAffinity: None
+  selector:
+    app: qdrant-deployment
